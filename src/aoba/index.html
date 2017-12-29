@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>aoba</title>
+</head>
+<body>
+    <canvas id="aoba" width="400" height="400"></canvas>
+</body>
+<script src="tween.js"></script>
+<script src="animation.js"></script>
+<script>
+    var canvas = document.querySelector('#aoba');
+    var ctx = canvas.getContext('2d');
+
+    var s = 1; // scale
+    var cW = 400*s;
+    canvas.width = cW;
+    canvas.height = cW;
+    var headR = 115*s;
+    var neck = [27*s,35*s];
+    var collar = [46*s, 32*s];
+    var uniform = [177*s, 70*s];
+    var horsetail = [27*s, 300*s];
+    var eye = [10*s, 44*s];
+    // bg
+    ctx.fillStyle = 'rgb(232,255,61)';
+    ctx.fillRect(0,0,cW,cW);
+
+    // uniform
+    ctx.fillStyle = 'rgb(128,37,166)';
+    ctx.beginPath();
+    ctx.moveTo(cW/2, cW/2+headR-10*s);
+    ctx.lineTo(cW/2-collar[0]/2-10*s, cW/2+headR + 15*s);
+    ctx.lineTo(cW/2-uniform[0]/2, cW/2+headR + 15*s);
+    ctx.lineTo(cW/2-uniform[0]/2, cW);
+    ctx.lineTo(cW/2+uniform[0]/2, cW);
+    ctx.lineTo(cW/2+uniform[0]/2, cW/2+headR + 15*s);
+    ctx.lineTo(cW/2+collar[0]/2 +10*s, cW/2+headR + 15*s);
+    ctx.closePath();
+    ctx.fill();
+    
+    // collar-back
+    ctx.fillStyle = 'rgb(193,199,193)';
+    ctx.fillRect(cW/2-collar[0]/2, cW/2+headR-3*s, collar[0], collar[1]);
+
+    // neck
+    ctx.fillStyle = 'rgb(243,179,171)';
+    ctx.fillRect(cW/2-neck[0]/2, cW/2+headR-3*s, neck[0], neck[1]);
+
+    // collar-front
+    ctx.fillStyle = 'rgb(255,255,255)';
+    ctx.beginPath();
+    ctx.moveTo(cW/2-collar[0]/2, cW/2+headR-3*s);
+    ctx.lineTo(cW/2-collar[0]/2-14*s, cW/2+headR-3*s + 55*s);
+    ctx.lineTo(cW/2-collar[0]/2-14*s + 10*s, cW/2+headR-3*s + 55*s - 6*s);
+    ctx.lineTo(cW/2, cW+8);
+    ctx.lineTo(cW/2+collar[0]/2+14*s-10*s, cW/2+headR-3*s + 55*s - 6*s);    
+    ctx.lineTo(cW/2+collar[0]/2+14*s, cW/2+headR-3*s + 55*s);
+    ctx.lineTo(cW/2+collar[0]/2, cW/2+headR-3*s);
+    ctx.lineTo(cW/2, cW/2+headR-3*s + neck[1]);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(cW/2, cW/2+headR-3*s + neck[1]);
+    ctx.lineTo(cW/2, cW);
+    ctx.closePath();
+    ctx.strokeStyle = '#eee';
+    ctx.lineWidth = 0.5*s;
+    ctx.stroke();
+
+    // tie
+    ctx.strokeStyle = 'rgb(251,177,254)';
+    ctx.lineWidth = 2*s;
+    var startP = [cW/2, cW/2+headR-3*s + neck[1] + 10*s]
+    ctx.beginPath();
+    ctx.moveTo(startP[0], startP[1]);
+    ctx.lineTo(cW/2 - 15*s, cW - 24*s);
+    ctx.lineTo(cW/2 - 8*s, cW - 19*s);
+    ctx.lineTo(startP[0] - 1*s, startP[1] + 4*s);
+    ctx.lineTo(cW/2 - 4*s, cW - 5*s);
+    ctx.moveTo(startP[0], startP[1] + 4*s);
+    ctx.lineTo(cW/2 + 4*s, cW - 5*s);
+    ctx.moveTo(startP[0], startP[1] + 2*s);
+    ctx.lineTo(cW/2 + 8*s, cW - 19*s);
+    ctx.lineTo(cW/2 + 15*s, cW - 24*s);
+    ctx.lineTo(startP[0], startP[1]);
+    ctx.closePath();
+    ctx.stroke();
+
+    //face
+    ctx.fillStyle = 'rgb(255,239,232)';
+    ctx.beginPath();
+    ctx.arc(cW/2, cW/2, headR, 0, Math.PI*2);
+    ctx.closePath();
+    ctx.fill();
+
+    // horsetail
+    ctx.fillStyle = 'rgb(238,225,255)';
+    ctx.fillRect(cW/2-headR-horsetail[0] + 12*s, 122*s, horsetail[0], horsetail[1]);
+    ctx.fillRect(cW/2+headR - 12*s, 122*s, horsetail[0], horsetail[1]);
+    
+    ctx.beginPath();
+    ctx.arc(cW/2-headR-horsetail[0] + 12*s + horsetail[0]/2, 122*s, horsetail[0]/2, 0, Math.PI*2);
+    ctx.arc(cW/2+headR+horsetail[0]/2 - 12*s, 122*s, horsetail[0]/2, 0, Math.PI*2);
+    ctx.fill();
+    ctx.closePath();
+    
+    ctx.fillStyle = 'rgb(190,147,255)';
+    ctx.fillRect(cW/2-headR-horsetail[0] + 12*s + 10*s, 207*s, horsetail[0]-10*s, horsetail[1]);
+    ctx.fillRect(cW/2+headR - 12*s, 207*s, horsetail[0]-10*s, horsetail[1])
+
+    //bang
+    ctx.fillStyle = 'rgb(238,225,255)';
+    ctx.beginPath();
+    ctx.arc(cW/2, cW/2, headR + 15*s, -1.02*Math.PI, 0.02*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(cW/2 - 6*s, cW/2+24, 110*s, -1.18*Math.PI, -0.82*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.arc(cW/2 + 6*s, cW/2+24, 110*s, -0.18*Math.PI, 0.18*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    // eye
+    drawEye(ctx, 1);
+
+    // flush
+    BezierEllipse2(ctx, cW/2 - 70*s, cW/2 + 15*s + 10*s + eye[1], 20*s, 6*s, 'rgb(255,205,206)');
+    BezierEllipse2(ctx, cW/2 + 70*s, cW/2 + 15*s + 10*s + eye[1], 20*s, 6*s, 'rgb(255,205,206)');
+
+    // flower
+    var flowerP = `M132.852,189.414c-1.22-2.627-5.192-3.375-8.872-1.667c-0.593,0.275-1.137,0.601-1.636,0.958
+	c0.493-1.158,0.78-2.507,0.78-3.953c0-4.282-2.479-7.753-5.538-7.753c-3.059,0-5.538,3.471-5.538,7.753
+	c0,1.407,0.271,2.723,0.74,3.86c-0.771-1.051-1.866-2.007-3.212-2.721c-3.583-1.901-7.589-1.367-8.947,1.193
+	c-1.357,2.56,0.447,6.176,4.031,8.077c1.255,0.666,2.557,1.016,3.784,1.102c-0.881,0.675-1.693,1.566-2.35,2.639
+	c-2.121,3.458-1.836,7.49,0.634,9.004c2.47,1.513,6.191-0.063,8.312-3.521c0.363-0.592,0.63-1.201,0.853-1.812
+	c0.14,0.938,0.426,1.906,0.869,2.854c1.8,3.858,5.497,5.942,8.252,4.656c2.755-1.288,3.528-5.458,1.728-9.316
+	c-0.466-0.998-1.06-1.875-1.731-2.608c1.098-0.078,2.257-0.369,3.388-0.894C132.077,195.558,134.071,192.042,132.852,189.414z`;
+    ctx.save();
+    ctx.scale(1.4*s,1.4*s);
+    ctx.translate(-50,-108);
+    // flower-shadow-left
+    ctx.fillStyle = 'rgb(189,146,251)';
+    var flower1sd = new Path2D(flowerP);
+    ctx.fill(flower1sd);
+    ctx.translate(0,-3);
+
+    // flower-left
+    var flower1 = new Path2D(flowerP);
+    ctx.fillStyle = '#fff';
+    ctx.stroke(flower1);
+    ctx.fill(flower1);
+
+    // flower-shadow-right
+    ctx.translate(153, 3);
+    ctx.fillStyle = 'rgb(189,146,251)';
+    var flower2sd = new Path2D(flowerP);
+    ctx.fill(flower2sd);
+
+    
+    ctx.translate(0, -3);
+    ctx.fillStyle = '#fff';
+    var flower2 = new Path2D(flowerP);
+    ctx.stroke(flower2);
+    ctx.fill(flower2);
+
+    ctx.restore();
+
+    // hat
+    ctx.save();
+    ctx.rotate(-0.11*Math.PI);
+    ctx.translate(68*s, 30*s);
+    var hsp = [40*s, 40*s];
+    // hat body
+    ctx.beginPath();
+    ctx.moveTo(hsp[0], hsp[1]);
+    ctx.lineTo(hsp[0]+45*s, hsp[1]);
+    ctx.lineTo(hsp[0]+60*s, hsp[1]+55*s);
+    ctx.lineTo(hsp[0]-15*s, hsp[1]+55*s);
+    ctx.closePath();
+    ctx.fillStyle = 'rgb(251,64,47)';
+    ctx.fill();
+
+    // shadow
+    ctx.fillStyle = 'rgb(219,195,235)';
+    ctx.beginPath();
+    ctx.moveTo(hsp[0]-30*s, hsp[1]+55*s + 5*s);
+    ctx.lineTo(hsp[0]-30*s - 6*s, hsp[1]+55*s + 5*s + 22*s);
+    ctx.lineTo(hsp[0] + 70*s, hsp[1]+55*s + 5*s + 18*s);
+    ctx.lineTo(hsp[0] + 70*s + 5*s, hsp[1]+55*s + 5*s + 9*s + 3*s);
+    ctx.closePath();
+    ctx.fill();
+
+    // top
+    ctx.fillStyle = 'rgb(215,95,85)';
+    ctx.beginPath();
+    ctx.moveTo(hsp[0], hsp[1]);
+    ctx.lineTo(hsp[0]-13*s, hsp[1]+ 27*s);
+    ctx.lineTo(hsp[0]+45*s, hsp[1]);
+    ctx.closePath();
+    ctx.fill();
+
+    // bottom & snow ball
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(hsp[0]-30*s, hsp[1]+55*s, 105*s, 19*s);
+    BezierEllipse2(ctx, hsp[0]-13*s, hsp[1]+ 27*s, 6*s, 7*s, '#fff');
+    ctx.restore();
+
+    startBlink(600);
+
+    // func
+    function startBlink(interval) {
+        var blinkTime = getRandom([100, 300]);
+        setTimeout(()=> {
+            Math.animation(1, 0.05, blinkTime/2, 'Cubic.easeIn', function(t) {
+                blink(ctx, t);
+            });
+            Math.animation(0.05, 1, blinkTime/2, 'Cubic.easeIn', function(t) {
+                blink(ctx, t);
+            });
+
+            startBlink(getRandom([1000, 5000]));
+        }, interval);
+    }
+
+    function getRandom(range) {
+        return range[0] + Math.random()*(range[1] - range[0]);
+    }
+
+    // draw ellipse
+    function BezierEllipse2(ctx, x, y, a, b, fillStyle)
+    {
+        var k = .5522848,
+        ox = a * k, // horizon offset
+        oy = b * k; // vertical offset
+
+        ctx.fillStyle = fillStyle;
+        ctx.beginPath();
+        // draw four bezierCurve
+        ctx.moveTo(x - a, y);
+        ctx.bezierCurveTo(x - a, y - oy, x - ox, y - b, x, y - b);
+        ctx.bezierCurveTo(x + ox, y - b, x + a, y - oy, x + a, y);
+        ctx.bezierCurveTo(x + a, y + oy, x + ox, y + b, x, y + b);
+        ctx.bezierCurveTo(x - ox, y + b, x - a, y + oy, x - a, y);
+        ctx.closePath();
+        ctx.fill();
+    };
+
+    function blink(ctx, t) {
+        clearEye(ctx);
+        drawEye(ctx, t);
+    }
+
+    function clearEye(ctx) {
+        ctx.fillStyle = 'rgb(255,239,232)';
+        ctx.fillRect(cW/2 - 45*s - 1*s, cW/2 + 15*s - 1*s, 92*s, eye[1] + 2*s);
+        ctx.fill();
+    }
+
+    function drawEye(ctx, scaleY) {
+        eyeH = eye[1]*scaleY;
+        var deltaH = eye[1]-eyeH;
+        ctx.fillStyle = 'rgb(151,78,183)';
+        ctx.fillRect(cW/2 - 45*s, cW/2 + 15*s + deltaH, eye[0], eyeH);
+        ctx.fillRect(cW/2 + 45*s - eye[0], cW/2 + 15*s + deltaH, eye[0], eyeH);
+        ctx.fillStyle = 'rgb(128,37,166)';
+        ctx.fillRect(cW/2 - 45*s, cW/2 + 15*s + deltaH, eye[0], eyeH/2);
+        ctx.fillRect(cW/2 + 45*s- eye[0], cW/2 + 15*s + deltaH, eye[0], eyeH/2);
+    }
+</script>
+</html>
